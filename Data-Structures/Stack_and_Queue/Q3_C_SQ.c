@@ -112,6 +112,9 @@ int isStackPairwiseConsecutive(Stack *s)
     if (abs(a - b) != 1){
 		return 0;
 	}
+
+	if (s->ll.size % 2 != 0)
+		return 0;
   }
 
   return 1;
