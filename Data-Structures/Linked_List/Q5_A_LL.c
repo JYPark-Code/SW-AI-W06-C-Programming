@@ -38,7 +38,7 @@ int removeNode(LinkedList *ll, int index);
 
 int main()
 {
-	int c, i;
+	int c = 1, i;
 	LinkedList ll;
 	LinkedList resultFrontList, resultBackList;
 
@@ -103,6 +103,33 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+	/* List 반으로 자르기, Slow pointer Fast pointer 사용해서 위에 하나 더 길게 셋업 */
+	int index = 0;
+	ListNode *curr = ll->head;
+	ListNode *slow = ll->head;
+	ListNode *fast = ll->head;
+
+	while (fast != NULL && fast->next != NULL && fast->next->next != NULL){
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+
+	slow = slow->next;
+
+	while(curr != slow){
+		insertNode(resultFrontList, index, curr->item);
+		curr = curr->next;
+		index++;
+	}
+	
+	index = 0;
+
+	while(slow != NULL){
+		insertNode(resultBackList, index, slow->item);
+		slow = slow->next;
+		index++;
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
