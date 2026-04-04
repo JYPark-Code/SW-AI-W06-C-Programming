@@ -126,6 +126,7 @@ int insertSortedLL(LinkedList *ll, int item)
 	
 	// // 마지막 리스트
 	// ListNode *newNode = malloc(sizeof(ListNode));
+	// // printf("sizeof(ListNode): %zu\n", sizeof(ListNode));
 	// newNode->item = item;
 	// prev->next = newNode;
 	// newNode->next = NULL;
