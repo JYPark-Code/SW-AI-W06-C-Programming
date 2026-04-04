@@ -88,6 +88,23 @@ int main()
 void RecursiveReverse(ListNode **ptrHead)
 {
 	/* add your code here */
+	/* 들어온 연결리스트 뒤집기 (함수명은 재귀적리버스) */
+
+	ListNode *first = *ptrHead;
+    ListNode *rest = first->next;
+
+    // base case : 비었거나, 한칸이면 그대로
+    if (*ptrHead == NULL || (*ptrHead)->next == NULL)
+        return;
+
+    // rest를 재귀로 뒤집기
+    RecursiveReverse(&rest);
+
+    // first를 맨 뒤에 붙이기
+   	first->next->next = first;
+    first->next = NULL;
+    *ptrHead = rest;
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////
