@@ -104,6 +104,35 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+	/* L1 + L2 길이기 홀수 일 때는 L2에 마지막을 남겨두고 아닐경우, L1에 다 합친다. */
+	/* L1, L2, L1, L2 순으로 붙인다. */
+	/* int insertNode(LinkedList *ll, int index, int value) */
+	/* int removeNode(LinkedList *ll, int index) */
+	int input_index = 1;
+	if (ll1 == NULL && ll2 == NULL)
+		return;
+	
+	ListNode *ll1_ptr;
+	ListNode *ll2_ptr;
+
+	ll1_ptr = ll1->head;
+	ll2_ptr = ll2->head;
+
+	while(ll1_ptr != NULL && ll2_ptr != NULL)
+	{
+		// ll2_ptr->item을 ll1의 insertIndex에 삽입
+		insertNode(ll1, input_index, ll2_ptr->item);
+		// ll1_ptr 이동
+		ll1_ptr = ll1_ptr->next->next;
+		// ll2_ptr 이동
+		ll2_ptr = ll2_ptr->next;
+		// ll2에서 해당 노드 제거
+		removeNode(ll2, 0);
+		// insertIndex 증가
+		input_index = input_index + 2;
+	}
+	
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
