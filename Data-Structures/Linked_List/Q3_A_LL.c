@@ -87,6 +87,52 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	/* 짝수는 앞으로 홀수는 뒤로 밀기, 그런데 sorted는 아님 들어온 순서대로 처리 */
+	/* int insertNode(LinkedList *ll, int index, int value) */
+	/* int removeNode(LinkedList *ll, int index) */
+	int index = 0;
+	int even_index = 0;
+	int odd_index = 0;
+	ListNode *curr = ll->head;
+
+	LinkedList *even = malloc(sizeof(LinkedList));
+	LinkedList *odd = malloc(sizeof(LinkedList));
+
+	// 안에 있는 값들 초기화
+	even->head = NULL;
+	even->size = 0;
+	odd->head = NULL;
+	odd->size = 0;
+
+	while(curr != NULL){
+		if ((curr->item) % 2 == 0){
+			insertNode(even, even_index, curr->item);
+			even_index++;
+
+		} else {
+			insertNode(odd, odd_index, curr->item);
+			odd_index++;
+		}
+		curr = curr -> next;
+	}
+	// ll을 아예 초기화
+	removeAllItems(ll);
+
+	// 원래 ll 사이즈도 복원
+	ll->size = even->size + odd->size;
+
+	// ll = even + odd로 갱신
+	if(even->head != NULL){
+		ListNode *lastEven = findNode(even, even->size - 1);
+		lastEven->next = odd->head;
+		ll->head = even->head;
+	} else {
+		ll->head = odd->head;
+	}
+
+	free(even);
+	free(odd);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
