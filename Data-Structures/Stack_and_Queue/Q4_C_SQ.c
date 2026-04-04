@@ -112,7 +112,30 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	/* add your code here */
+	Stack *temp = malloc(sizeof(Stack));
+ 
+	// 초기화
+	temp->ll.head = NULL;
+	temp->ll.size = 0;
+	temp->ll.tail = NULL;
+
+	int size = q->ll.size;
+
+	for(int i = 0; i < size; i++){
+		int item = dequeue(q);
+		push(temp, item);
+	}
+
+	int temp_size = temp->ll.size;
+	
+	for(int i = 0; i < temp_size; i++){
+		int item = pop(temp);
+		enqueue(q, item);
+	}
+
+	free(temp);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
