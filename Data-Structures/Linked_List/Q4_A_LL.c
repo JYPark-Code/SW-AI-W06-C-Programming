@@ -87,6 +87,51 @@ int main()
 void moveEvenItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	/* 3번이랑 정 반대 */
+	/* int insertNode(LinkedList *ll, int index, int value) */
+	/* int removeNode(LinkedList *ll, int index) */
+	int index = 0;
+	int even_index = 0;
+	int odd_index = 0;
+	ListNode *curr = ll->head;
+
+	LinkedList *even = malloc(sizeof(LinkedList));
+	LinkedList *odd = malloc(sizeof(LinkedList));
+
+	// 안에 있는 값들 초기화
+	even->head = NULL;
+	even->size = 0;
+	odd->head = NULL;
+	odd->size = 0;
+
+	while(curr != NULL){
+		if ((curr->item) % 2 == 0){
+			insertNode(even, even_index, curr->item);
+			even_index++;
+
+		} else {
+			insertNode(odd, odd_index, curr->item);
+			odd_index++;
+		}
+		curr = curr -> next;
+	}
+	// ll을 아예 초기화
+	removeAllItems(ll);
+
+	// 원래 ll 사이즈도 복원
+	ll->size = even->size + odd->size;
+
+	// ll = even + odd로 갱신
+	if(even->head != NULL){
+		ListNode *lastOdd = findNode(odd, odd->size - 1);
+		lastOdd->next = even->head;
+		ll->head = odd->head;
+	} else {
+		ll->head = even->head;
+	}
+
+	free(even);
+	free(odd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
