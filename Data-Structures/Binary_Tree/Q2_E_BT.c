@@ -98,6 +98,20 @@ int maxHeight(BTNode *node)
 
 {
     /* add your code here */
+    // 노드 기준은 0 엣지 기준은 -1
+    if (node == NULL){
+        return -1;
+    }
+
+    int left = maxHeight(node->left);
+    int right = maxHeight(node->right);
+
+
+    if (right > left){
+        return right + 1;
+    }
+    return left + 1;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
