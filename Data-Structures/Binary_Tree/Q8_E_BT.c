@@ -45,6 +45,8 @@ BTNode* pop(Stack *stack);
 
 void printTree(BTNode *node);
 void removeAll(BTNode **node);
+void hasGreatGrandchildHelper(BTNode *node, int depth);
+int hasNodeAtDepth(BTNode *node, int depth);
 
 ///////////////////////////// main() /////////////////////////////////////////////
 
@@ -103,6 +105,29 @@ int main()
 int hasGreatGrandchild(BTNode *node)
 {
 	/* add your code here */
+    hasGreatGrandchildHelper(node, 0);
+
+}
+
+//내가 임의로 만든 함수들
+
+// helper 함수 - 내부에서 재귀로 사용
+void hasGreatGrandchildHelper(BTNode *node, int depth) {
+    if (node == NULL) return;
+    
+    if (hasNodeAtDepth(node, 3)) {
+        printf("%d\n", node->item);
+    }
+    
+    hasGreatGrandchildHelper(node->left, depth + 1);
+    hasGreatGrandchildHelper(node->right, depth + 1);
+}
+
+// 현재 노드에서 depth 단계 아래에 노드가 있으면 1, 없으면 0
+int hasNodeAtDepth(BTNode *node, int depth) {
+    if (node == NULL) return 0;
+    if (depth == 0) return 1;
+    return hasNodeAtDepth(node->left, depth-1) || hasNodeAtDepth(node->right, depth-1);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
