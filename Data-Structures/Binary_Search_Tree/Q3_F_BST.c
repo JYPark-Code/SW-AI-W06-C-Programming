@@ -91,7 +91,29 @@ int main()
 
 void preOrderIterative(BSTNode *root)
 {
-	 /* add your code here */
+	/* add your code here */
+	/* 전위 순회 root->left->right */
+	/* Stack 사용*/
+	Stack *s = malloc(sizeof(Stack));
+	s->top = NULL;
+
+	BSTNode *curr;
+
+	// curr 초기화 & root에 넣기
+	
+	curr = root;
+	push(s, curr);
+
+	// 스택이라 오른쪽을 먼저 넣어야 뺄 때 왼쪽이 나옴.
+	while(!isEmpty(s))
+	{	
+		curr = pop(s);
+		printf("%d ", curr->item);
+		if (curr->right)
+			push(s, curr->right);
+		if (curr->left)
+			push(s, curr->left);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
