@@ -91,7 +91,36 @@ int main()
 
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+	/* add your code here */
+	/* 후위 순열 left -> right -> root 순*/
+	
+	/* add your code here */
+	/* Stack 사용*/
+	Stack *s = malloc(sizeof(Stack));
+    s->top = NULL;
+    
+    BSTNode *curr = root;
+    BSTNode *lastVisited = NULL;
+    
+    while (curr != NULL || !isEmpty(s)) {
+        // 왼쪽 끝까지 push
+        while (curr != NULL) {
+            push(s, curr);
+            curr = curr->left;
+        }
+        
+        curr = peek(s);
+        
+        // 오른쪽이 없거나 이미 방문했으면 출력
+        if (curr->right == NULL || curr->right == lastVisited) {
+            printf("%d ", curr->item);
+            lastVisited = pop(s);
+            curr = NULL;
+        } else {
+            curr = curr->right;
+        }
+    }
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
