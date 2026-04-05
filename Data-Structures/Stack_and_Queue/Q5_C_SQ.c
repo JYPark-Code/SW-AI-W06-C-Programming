@@ -111,9 +111,8 @@ void recursiveReverse(Queue *q)
 {
 	int item;
 
-	if (q == NULL || q->ll.head == NULL){
-		return 0;
-	}
+	if (q == NULL || q->ll.head == NULL) return;
+	
 
 	item = dequeue(q);
 	recursiveReverse(q);
