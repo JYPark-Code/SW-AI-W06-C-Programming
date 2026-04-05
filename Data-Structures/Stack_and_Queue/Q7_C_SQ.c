@@ -104,7 +104,41 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	/* add your code here */
+	Stack *s = malloc(sizeof(Stack));
+	s->ll.size = 0;
+	s->ll.head = NULL;
+
+	for (int i = 0; expression[i] != '\0'; i++){
+		char ch = expression[i];
+		// ch가 '(' '[' '{' 이면 push
+		if (ch == '(' || ch ==  '[' || ch ==  '{'){
+			push(s, ch);
+		}
+    	// ch가 ')' ']' '}' 이면 peek로 top 확인 후 pop
+		else if(ch == ')' || ch ==  ']' || ch ==  '}'){
+			if(s->ll.size > 0){
+				int top = peek(s);
+				if (ch == ')' && top == '('){
+					pop(s);
+				}
+
+				else if (ch == ']' && top == '['){
+					pop(s);
+				}
+
+				else if (ch == '}' && top == '{'){
+					pop(s);
+				}
+			}
+		}
+	}
+
+	if(s->ll.size){
+		return 1;
+	}
+	return 0;
+	
 }
 
 ////////////////////////////////////////////////////////////
