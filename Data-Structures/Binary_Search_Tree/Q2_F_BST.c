@@ -91,6 +91,35 @@ int main()
 void inOrderTraversal(BSTNode *root)
 {
 	 /* add your code here */
+	 /* 중위 순회 left->root->right 
+	 	0. Stack 사용
+	 	1. 왼쪽 끝까지 계속 push하면서 내려가고,
+		2. 더 이상 내려갈 수 없으면 pop해서 출력하고 오른쪽으로 이동
+	 */
+
+	Stack *s = malloc(sizeof(Stack));
+	s->top = NULL;
+
+	BSTNode *curr;
+
+	curr = root;
+
+	while(curr != NULL || !isEmpty(s))
+	{	
+		// 왼쪽으로 끝까지 가는 로직
+		while(curr != NULL){
+			push(s, curr);
+			curr = curr -> left;
+		}
+		// 그 다음에 pop
+		curr = pop(s);
+		printf("%d ", curr->item);
+		curr = curr -> right;
+	}
+	
+
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
