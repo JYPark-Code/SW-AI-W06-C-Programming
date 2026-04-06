@@ -91,14 +91,84 @@ int main()
 
 void postOrderIterativeS2(BSTNode *root)
 {
-	 /* add your code here */
+	/* add your code here */
+	/* right→left→root	*/
+	Stack *s = malloc(sizeof(Stack));
+	Stack *s2 = malloc(sizeof(Stack));
+	s->top = NULL;
+	s2->top = NULL;
+
+	BSTNode *curr;
+
+	// curr 초기화 & root에 넣기
+
+	curr = root;
+	push(s, curr);
+
+	// 스택이라 오른쪽을 먼저 넣어야 뺄 때 왼쪽이 나옴.
+	while(!isEmpty(s))
+	{	
+		curr = pop(s);
+		push(s2, curr);
+
+		if (curr->left)
+			push(s, curr->left);
+		if (curr->right)
+			push(s, curr->right);
+	}
+
+	while(!isEmpty(s2)){
+		printf("%d ", pop(s2)->item);
+	}
+
 }
 
 /* Given a binary search tree and a key, this function
    deletes the key and returns the new root. Make recursive function. */
-BSTNode* removeNodeFromTree(BSTNode *root, int value)
+BSTNode *removeNodeFromTree(BSTNode *root, int value)
 {
 	/* add your code here */
+	if (root == NULL) return NULL;
+    
+    if (value < root->item)
+        root->left = removeNodeFromTree(root->left, value);
+    else if (value > root->item)
+        root->right = removeNodeFromTree(root->right, value);
+    else {
+        // 3가지 케이스 처리
+        // 1. 자식 없음 (좌, 우가 존재하는지)
+		if (root->left == NULL && root->right == NULL) {
+			free(root);
+			return NULL;
+		}
+
+        // 2. 자식 1개
+		if (root->left != NULL && root->right == NULL){
+			BSTNode *temp = root->left;
+			free(root);
+			return temp;
+			
+		}
+
+		if (root->left == NULL && root->right != NULL){
+			BSTNode *temp = root->right;
+			free(root);
+			return temp;
+		}
+         
+		// 3. 자식 2개일 때
+		if (root->left != NULL && root->right != NULL) {
+			BSTNode *minNode = root->right;
+			while (minNode->left != NULL)
+				minNode = minNode->left;
+			
+			root->item = minNode->item;  // 값 복사
+			root->right = removeNodeFromTree(root->right, minNode->item);  // 삭제
+    }
+
+    }
+    return root;
+
 }
 ///////////////////////////////////////////////////////////////////////////////
 
